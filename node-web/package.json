@@ -1,0 +1,14 @@
+{
+  "name": "node_openshift_hello_world_app",
+  "version": "1.0.0",
+  "description": "Node.js on OpenShift",
+  "author": "Anish Asthana <anishasthana1@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "socket.io": "^2.0.3"
+  }
+}

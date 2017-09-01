@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <h1 id="heading" style="text-align: center">Getting Started App</h1>
+    <div style="margin:20px; text-align: center">
+        <button id="update" class="btn btn-primary">Press Me!</button>
+        <h3>
+            Server Information
+        </h3>
+    </div>
+    <div>
+        <table id="information " class="table table-bordered table-striped table-responsive">
+            <tr>
+                <td>Page Hits</td>
+                <td>
+                    <p id="page_hits">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Current Users</td>
+                <td>
+                    <p id="users">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Button Hits</td>
+                <td>
+                    <p id='hits'>Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Server Uptime</td>
+                <td>
+                    <p id='time'>Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Architecture</td>
+                <td>
+                    <p id='cpu'>Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Number of Cores:</td>
+                <td>
+                    <p id='cores'>Unknown</p>
+                </td>
+        </table>
+    </div>
+    <script>
+        var socket = io();
+        $('#update').click(function () {
+            socket.emit('button clicked');
+            return false;
+        });
+        socket.on('update', function (information) {
+
+            console.log(information)
+            document.getElementById("page_hits").innerHTML = information['pageHits'];
+            document.getElementById('hits').innerHTML = information['buttonHits'];
+            document.getElementById("users").innerHTML = information['clients'];
+            document.getElementById("time").innerHTML = information['time'];
+            document.getElementById("cpu").innerHTML = information['CPU'];
+            document.getElementById("cores").innerHTML = information['cores'];
+        })
+    </script>
+</body>
+
+</html>
