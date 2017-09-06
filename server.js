@@ -4,10 +4,10 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const path = require('path');
-const os = require('os');
 const ip = require('ip');
 const morgan  = require('morgan');
+const os = require('os');
+const path = require('path');
 
 // Constants
 const PORT = 8080;
