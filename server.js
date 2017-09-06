@@ -6,6 +6,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
 const os = require('os');
+const ip = require('ip');
 
 // Constants
 const PORT = 8000;
@@ -42,7 +43,8 @@ function update() {
         clients: io.engine.clientsCount,
         time: format(process.uptime()),
         CPU: os.cpus()[0]['model'],
-        cores: Object.keys(os.cpus()).length
+        cores: Object.keys(os.cpus()).length,
+        serverIP: ip.address()
       });
   }
 }
@@ -57,5 +59,5 @@ function format(seconds) {
 
 // Listening on port now
 http.listen(PORT, function () {
-  console.log(`listening on *:${PORT}`);
+  console.log(`Listening on *:${PORT}`);
 });

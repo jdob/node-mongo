@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello World</title>
+    <title>Node.js Demo</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <h1 id="heading" style="text-align: center">Getting Started App</h1>
+    <h1 id="heading" style="text-align: center">Node.js Demo</h1>
     <div style="margin:20px; text-align: center">
         <button id="update" class="btn btn-primary">Press Me!</button>
         <h3>
@@ -45,26 +45,33 @@
             <tr>
                 <td>Button Hits</td>
                 <td>
-                    <p id='hits'>Unknown</p>
+                    <p id="hits">Unknown</p>
                 </td>
             </tr>
             <tr>
                 <td>Server Uptime</td>
                 <td>
-                    <p id='time'>Unknown</p>
+                    <p id="time">Unknown</p>
                 </td>
             </tr>
             <tr>
                 <td>Architecture</td>
                 <td>
-                    <p id='cpu'>Unknown</p>
+                    <p id="cpu">Unknown</p>
                 </td>
             </tr>
             <tr>
                 <td>Number of Cores:</td>
                 <td>
-                    <p id='cores'>Unknown</p>
+                    <p id="cores">Unknown</p>
                 </td>
+            </tr>
+            <tr>
+                <td>Server IP:</td>
+                <td>
+                    <p id="ip">Unknown</p>
+                </td>
+            </tr>
         </table>
     </div>
     <script>
@@ -74,14 +81,14 @@
             return false;
         });
         socket.on('update', function (information) {
-
             console.log(information)
             document.getElementById("page_hits").innerHTML = information['pageHits'];
-            document.getElementById('hits').innerHTML = information['buttonHits'];
+            document.getElementById("hits").innerHTML = information['buttonHits'];
             document.getElementById("users").innerHTML = information['clients'];
             document.getElementById("time").innerHTML = information['time'];
             document.getElementById("cpu").innerHTML = information['CPU'];
             document.getElementById("cores").innerHTML = information['cores'];
+            document.getElementById("ip").innerHTML = information['serverIP'];
         })
     </script>
 </body>
