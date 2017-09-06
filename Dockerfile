@@ -1,10 +1,10 @@
 FROM node:8
 LABEL version="1" 
 LABEL name="Node OpenShift Hello World App"
-LABEL vendor="Red Hat Business Unit"
+LABEL vendor="Red Hat"
 LABEL release="1"
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENV HOME=/opt/app-root
 WORKDIR ${HOME}
