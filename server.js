@@ -7,6 +7,7 @@ const io = require('socket.io')(http);
 const path = require('path');
 const os = require('os');
 const ip = require('ip');
+const morgan  = require('morgan');
 
 // Constants
 const PORT = 8080;
@@ -17,6 +18,10 @@ var hits = 0;
 var buttonCount = 0;
 
 // App
+var morgan_level = process.env.MORGAN || 'common'
+console.log(`Logging Level: ${morgan_level}`)
+app.use(morgan(morgan_level))
+
 app.get('/', function (req, res) {
   var filePath = path.join(__dirname, '/views/index.html');
   path.normalize(filePath);
