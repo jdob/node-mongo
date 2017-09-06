@@ -43,7 +43,8 @@ function update() {
         time: format(process.uptime()),
         CPU: os.cpus()[0]['model'],
         cores: Object.keys(os.cpus()).length,
-        serverIP: ip.address()
+        serverIP: ip.address(),
+        envVar: process.env.TEXT
       });
   }
 }

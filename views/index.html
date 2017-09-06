@@ -75,6 +75,12 @@
                     <p id="ip">Unknown</p>
                 </td>
             </tr>
+            <tr>
+                <td>Environment Variable (TEXT):</td>
+                <td>
+                    <p id="env_var">Unknown</p>
+                </td>
+            </tr>
         </table>
     </div>
     <script>
@@ -91,6 +97,7 @@
             document.getElementById("cpu").innerHTML = information['CPU'];
             document.getElementById("cores").innerHTML = information['cores'];
             document.getElementById("ip").innerHTML = information['serverIP'];
+            document.getElementById("env_var").innerHTML = information['envVar'];
         })
     </script>
 </body>
