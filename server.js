@@ -40,7 +40,6 @@ function update() {
       {
         pageHits: hits,
         buttonHits: buttonCount,
-        clients: io.engine.clientsCount,
         time: format(process.uptime()),
         CPU: os.cpus()[0]['model'],
         cores: Object.keys(os.cpus()).length,

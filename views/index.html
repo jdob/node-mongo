@@ -46,12 +46,6 @@
                 </td>
             </tr>
             <tr>
-                <td>Current Users</td>
-                <td>
-                    <p id="users">Unknown</p>
-                </td>
-            </tr>
-            <tr>
                 <td>Button Hits</td>
                 <td>
                     <p id="hits">Unknown</p>
@@ -93,7 +87,6 @@
             console.log(information)
             document.getElementById("page_hits").innerHTML = information['pageHits'];
             document.getElementById("hits").innerHTML = information['buttonHits'];
-            document.getElementById("users").innerHTML = information['clients'];
             document.getElementById("time").innerHTML = information['time'];
             document.getElementById("cpu").innerHTML = information['CPU'];
             document.getElementById("cores").innerHTML = information['cores'];
