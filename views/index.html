@@ -36,6 +36,7 @@
     <h1 id="heading" style="text-align: center">Node.js Demo</h1>
     <div style="margin:20px; text-align: center">
         <button id="update" class="btn btn-primary">Press Me!</button>
+        <p id="dbname">Not Connected</p>
     </div>
     <div id="details">
         <table class="table table-bordered table-striped table-responsive table-hover">
@@ -98,6 +99,7 @@
             document.getElementById("cores").innerHTML = information['cores'];
             document.getElementById("ip").innerHTML = information['serverIP'];
             document.getElementById("env_var").innerHTML = information['envVar'];
+            document.getElementById("dbname").innerHTML = information['dbname'];
         })
     </script>
 </body>

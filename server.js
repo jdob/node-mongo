@@ -79,6 +79,8 @@ app.get('/', function (req, res) {
     // Store visitor information
     var visitors = db.collection('visitors')
     visitors.insert({ip: req.ip, date: Date.now()});
+
+    // Update the hits from the database instead of the stored value
     visitors.count(function(err, count){
       hits = count
     });
@@ -87,7 +89,6 @@ app.get('/', function (req, res) {
   var filePath = path.join(__dirname, '/views/index.html');
   path.normalize(filePath);
   res.sendFile(path.resolve(filePath));
-  hits++
   update();
 });
 
@@ -110,7 +111,8 @@ function update() {
         CPU: os.cpus()[0]['model'],
         cores: Object.keys(os.cpus()).length,
         serverIP: ip.address(),
-        envVar: process.env.TEXT
+        envVar: process.env.TEXT,
+        dbname: dbDetails.dbname
       });
   }
 }
