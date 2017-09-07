@@ -133,7 +133,7 @@ function update() {
         cores: Object.keys(os.cpus()).length,
         serverIP: ip.address(),
         envVar: process.env.TEXT,
-        dbname: dbDetails.dbname
+        dbname: dbDetails.databaseName
       });
   }
 }
