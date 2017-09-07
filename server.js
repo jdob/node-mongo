@@ -68,14 +68,13 @@ var initDb = function(callback) {
   });
 };
 
-// == App ==========
+// == Logging ==========
 var morgan_level = process.env.MORGAN || 'common'
 console.log(`Logging Level: ${morgan_level}`)
 app.use(morgan(morgan_level))
 
+// == Requests ==========
 app.get('/', function (req, res) {
-  console.log("Get /")
-  // Try to initialize the database in case one has been connected
   if (!db) {
     initDb(function(err){})
   }
@@ -98,9 +97,6 @@ app.get('/', function (req, res) {
 });
 
 app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  console.log("Get pagecount")
   if (!db) {
     initDb(function(err){});
   }
