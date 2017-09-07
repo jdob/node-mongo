@@ -10,7 +10,7 @@ const os = require('os');
 const path = require('path');
 
 // == Constants ==========
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const HOST = '0.0.0.0';
 
 // == Counts ==========
@@ -88,6 +88,9 @@ app.get('/', function (req, res) {
     visitors.count(function(err, count){
       hits = count
     });
+  }
+  else {
+    hits++;
   }
 
   var filePath = path.join(__dirname, '/views/index.html');
