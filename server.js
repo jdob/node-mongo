@@ -22,6 +22,7 @@ var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
 var mongoURLLabel = "";
 
 if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
+  console.log("Found database service name, generating connection information")
   var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
       mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
       mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
@@ -30,6 +31,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
       mongoUser = process.env[mongoServiceName + '_USER'];
 
   if (mongoHost && mongoPort && mongoDatabase) {
+    console.log("Generating database URL")
     mongoURLLabel = mongoURL = 'mongodb://';
     if (mongoUser && mongoPassword) {
       mongoURL += mongoUser + ':' + mongoPassword + '@';
@@ -37,18 +39,20 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
     // Provide UI label that excludes user id and pw
     mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
     mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-
+    console.log(`Generated database URL: ${mongoURL}`)    
   }
 }
 var db = null;
 var dbDetails = new Object();
 
 var initDb = function(callback) {
+  console.log("Initializing database")
   if (mongoURL == null) return;
 
   var mongodb = require('mongodb');
   if (mongodb == null) return;
 
+  console.log("Connecting to the database")
   mongodb.connect(mongoURL, function(err, conn) {
     if (err) {
       callback(err);
@@ -70,6 +74,7 @@ console.log(`Logging Level: ${morgan_level}`)
 app.use(morgan(morgan_level))
 
 app.get('/', function (req, res) {
+  console.log("Get /")
   // Try to initialize the database in case one has been connected
   if (!db) {
     initDb(function(err){})
@@ -90,6 +95,22 @@ app.get('/', function (req, res) {
   path.normalize(filePath);
   res.sendFile(path.resolve(filePath));
   update();
+});
+
+app.get('/pagecount', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  console.log("Get pagecount")
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    db.collection('visitors').count(function(err, count ){
+      res.send('{ pageCount: ' + count + '}');
+    });
+  } else {
+    res.send('{ pageCount: -1 }');
+  }
 });
 
 io.on('connection', function (socket) {
