@@ -25,9 +25,13 @@
             background-color: #e6e6ff;
         }
 
-        #details {
-            margin-right: 50px;
-            margin-left: 50px;
+        .details {
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+
+        .key {
+            width: 250px;
         }
     </style>
 </head>
@@ -36,50 +40,58 @@
     <h1 id="heading" style="text-align: center">Node.js Demo</h1>
     <div style="margin:20px; text-align: center">
         <button id="update" class="btn btn-primary">Press Me!</button>
-        <p id="dbname">Not Connected</p>
     </div>
-    <div id="details">
+    <div class="details">
         <table class="table table-bordered table-striped table-responsive table-hover">
             <tr>
-                <td>Page Hits</td>
+                <td class="key">Page Hits</td>
                 <td>
                     <p id="page_hits">Unknown</p>
                 </td>
             </tr>
             <tr>
-                <td>Button Hits</td>
+                <td class="key">Button Hits</td>
                 <td>
                     <p id="hits">Unknown</p>
                 </td>
             </tr>
+        </table>
+
+        <table class="table table-bordered table-striped table-responsive table-hover">
             <tr>
-                <td>Server Uptime</td>
-                <td>
-                    <p id="time">Unknown</p>
-                </td>
-            </tr>
-            <tr>
-                <td>Architecture</td>
-                <td>
-                    <p id="cpu">Unknown</p>
-                </td>
-            </tr>
-            <tr>
-                <td>Number of Cores:</td>
-                <td>
-                    <p id="cores">Unknown</p>
-                </td>
-            </tr>
-            <tr>
-                <td>Server IP:</td>
+                <td class="key">Server IP</td>
                 <td>
                     <p id="ip">Unknown</p>
                 </td>
             </tr>
             <tr>
-                <td>Environment Variable (TEXT):</td>
+                <td class="key">Database Name</td>
+                <td>
+                    <p id="db_name">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Environment Variable (TEXT)</td>
                 <td>
                     <p id="env_var">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Server Uptime</td>
+                <td>
+                    <p id="time">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Architecture</td>
+                <td>
+                    <p id="cpu">Unknown</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Number of Cores</td>
+                <td>
+                    <p id="cores">Unknown</p>
                 </td>
             </tr>
         </table>
@@ -90,8 +102,12 @@
             socket.emit('button clicked');
             return false;
         });
+
         socket.on('update', function (information) {
             console.log(information)
+
+            var db_name = information['dbname'] || "Not Connected";
+
             document.getElementById("page_hits").innerHTML = information['pageHits'];
             document.getElementById("hits").innerHTML = information['buttonHits'];
             document.getElementById("time").innerHTML = information['time'];
@@ -99,7 +115,7 @@
             document.getElementById("cores").innerHTML = information['cores'];
             document.getElementById("ip").innerHTML = information['serverIP'];
             document.getElementById("env_var").innerHTML = information['envVar'];
-            document.getElementById("dbname").innerHTML = information['dbname'];
+            document.getElementById("db_name").innerHTML = db_name;
         })
     </script>
 </body>

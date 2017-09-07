@@ -69,9 +69,9 @@ var initDb = function(callback) {
 };
 
 // == Logging ==========
-var morgan_level = process.env.MORGAN || 'common'
-console.log(`Logging Level: ${morgan_level}`)
-app.use(morgan(morgan_level))
+var morgan_level = process.env.MORGAN || 'common';
+console.log(`Logging Level: ${morgan_level}`);
+app.use(morgan(morgan_level));
 
 // == Requests ==========
 app.get('/', function (req, res) {
