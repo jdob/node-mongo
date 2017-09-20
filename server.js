@@ -39,7 +39,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
     // Provide UI label that excludes user id and pw
     mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
     mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-    console.log(`Generated database URL: ${mongoURL}`)    
+    console.log(`Generated database URL: ${mongoURL}`)
   }
 }
 var db = null;
@@ -52,7 +52,7 @@ var initDb = function(callback) {
   var mongodb = require('mongodb');
   if (mongodb == null) return;
 
-  console.log("Connecting to the database")
+  console.log("Connecting to the database at: %s", mongoURL)
   mongodb.connect(mongoURL, function(err, conn) {
     if (err) {
       callback(err);
