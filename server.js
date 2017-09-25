@@ -16,6 +16,7 @@ const HOST = '0.0.0.0';
 // == Counts ==========
 var hits = 0;
 var buttonCount = 0;
+var visitor_list = [];
 
 // == Mongo ==========
 var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
@@ -64,7 +65,7 @@ var initDb = function(callback) {
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
 
-    console.log('Connected to MongoDB at: %s', mongoURL);
+    console.log('Connected to the database at: %s', mongoURL);
   });
 };
 
@@ -74,6 +75,8 @@ console.log(`Logging Level: ${morgan_level}`);
 app.use(morgan(morgan_level));
 
 // == Requests ==========
+app.set('view engine', 'ejs');
+
 app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){})
@@ -88,14 +91,19 @@ app.get('/', function (req, res) {
     visitors.count(function(err, count){
       hits = count
     });
+
+    visitors.find().toArray(function(err, results) {
+      visitor_list = results;
+      console.log('Loaded visitors')
+    });
   }
   else {
     hits++;
   }
 
-  var filePath = path.join(__dirname, '/views/index.html');
-  path.normalize(filePath);
-  res.sendFile(path.resolve(filePath));
+  var filePath = path.join(__dirname, '/views/index.ejs');
+  // res.sendFile(path.resolve(filePath));
+  res.render('index.ejs', {visitors: visitor_list});
   update();
 });
 
@@ -132,7 +140,8 @@ function update() {
         cores: Object.keys(os.cpus()).length,
         serverIP: ip.address(),
         envVar: process.env.TEXT,
-        dbname: dbDetails.databaseName
+        dbname: dbDetails.databaseName,
+        visitors: visitor_list
       });
   }
 }

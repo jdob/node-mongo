@@ -32,6 +32,7 @@
 
         .key {
             width: 250px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -95,6 +96,22 @@
                 </td>
             </tr>
         </table>
+
+        <% if (visitors.length > 0) { %>
+        <h3>Visitors</h3>
+        <table class="table table-bordered table-striped table-responsive table-hover">
+            <tr>
+              <td><b>Container IP</b>
+              <td><b>Timestamp</b></td>
+            </tr>
+            <% for(var i=0; i<visitors.length; i++) {%>
+              <tr>
+                  <td><%= visitors[i].ip %></td>
+                  <td><%= new Date(visitors[i].date) %></td>
+              </tr>
+            <% } %>
+        </table>
+        <% } %>
     </div>
     <script>
         var socket = io();
