@@ -85,7 +85,7 @@ app.get('/', function (req, res) {
   if (db) {
     // Store visitor information
     var visitors = db.collection('visitors')
-    visitors.insert({ip: req.ip, date: Date.now()});
+    visitors.insert({ip: ip.address(), date: Date.now()});
 
     // Update the hits from the database instead of the stored value
     visitors.count(function(err, count){
